@@ -1,0 +1,15 @@
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\bin\Debug\WindowsForm-Json.exe.config
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\bin\Debug\WindowsForm-Json.exe
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\bin\Debug\WindowsForm-Json.pdb
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\obj\Debug\WindowsForm-Json.csprojAssemblyReference.cache
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\obj\Debug\WindowsForm_Json.Form1.resources
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\obj\Debug\WindowsForm_Json.Properties.Resources.resources
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\obj\Debug\WindowsForm-Json.csproj.GenerateResource.cache
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\obj\Debug\WindowsForm-Json.csproj.CoreCompileInputs.cache
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\obj\Debug\WindowsForm-Json.exe
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\obj\Debug\WindowsForm-Json.pdb
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\bin\Debug\Newtonsoft.Json.dll
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\bin\Debug\Newtonsoft.Json.xml
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\marcos\Documents\CODING\C#\WindowsForm-Json\WindowsForm-Json\obj\Debug\WindowsForm-Json.csproj.CopyComplete
