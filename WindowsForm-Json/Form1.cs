@@ -10,6 +10,8 @@ namespace WindowsForm_Json
     public partial class Form1 : Form
     {
         private static HttpResponseMessage response;
+        Experiences exp = new Experiences();
+        int myValue;
 
         public Form1()
         {
@@ -19,8 +21,12 @@ namespace WindowsForm_Json
 
         private async void fillDataAsync()
         {
-            dataGridView1.ColumnCount = 1;
-            dataGridView1.Columns[0].Name = "companyName";
+            //creating programatically the grid columns, properties and options
+            dataGridView1.ColumnCount = 2; 
+            dataGridView1.Columns[0].Name = "id";
+            dataGridView1.Columns[0].Visible = false;
+            dataGridView1.Columns[1].Name = "companyName";
+            dataGridView1.Columns[1].Visible = true;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             using (var client = createClient())
@@ -31,10 +37,12 @@ namespace WindowsForm_Json
 
                     if (response.IsSuccessStatusCode)
                     {
+                        //Instantiating the class Experience as a List to be accessed  and read Asynchrononously
                         List<Experiences> experiences = await response.Content.ReadAsAsync<List<Experiences>>();
                         for (int i = 0; i < experiences.Count; i++)
                         {
-                            string[] row = { "" + experiences[i].companyname + "" };
+                            //adding to the grid with 2 parameters: 1 - id and 2 - companyname on position [i]
+                            string[] row = { "" + experiences[i].id + "", "" + experiences[i].companyname + "" };
                             dataGridView1.Rows.Add(row);
                         }
                     }
@@ -49,6 +57,7 @@ namespace WindowsForm_Json
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
+            //gambiarra
             if (textBox1.Text == "Empresa")
             {
                 textBox1.Text = "";
@@ -57,13 +66,17 @@ namespace WindowsForm_Json
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //setting the focus to the label, so the hint can be shonw on the input text
             this.ActiveControl = label1;
         }
 
-
-        //pre-loading HttpClient initial specs
         private static HttpClient createClient()
         {
+            //pre-loading HttpClient initial specs
+
+            //generating the method createCliente(), to be added to all methods that needs to access the server
+            //methods
+
             var client = new HttpClient();
             //Go get the data
             client.BaseAddress = new Uri("http://localhost:3000/");
@@ -88,16 +101,17 @@ namespace WindowsForm_Json
                 }
                 else
                 {
+                    //Creating a new experience
                     Experiences newExperience = new Experiences();
                     newExperience.companyname = companyName;
 
                     try
                     {
+                        //posting and clearing the grid and filling it again
                         response = await client.PostAsJsonAsync("experiences", newExperience);
 
                         if (response.IsSuccessStatusCode)
                         {
-                            Uri experienceUrl = response.Headers.Location;
                             MessageBox.Show(companyName + " adicionada(O) com sucesso", "POST METHOD",
                                 MessageBoxButtons.OK);
                             textBox1.Text = "Empresa";
@@ -116,7 +130,47 @@ namespace WindowsForm_Json
 
         private async void dataGridView1_CellContentClickAsync(object sender, DataGridViewCellEventArgs e)
         {
+        }
 
+        private async void btnDelete_ClickAsync(object sender, EventArgs e)
+        {
+            using (var client = createClient())
+            {
+                try
+                {
+                    //deleting with global parameter from GridDoubleClick and clearing the grid and filling it again
+                    response = await client.DeleteAsync("experiences/" + myValue);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show(" Experiência deletada com sucesso", "DELETE METHOD",
+                                MessageBoxButtons.OK);
+
+                        dataGridView1.Rows.Clear();
+                        fillDataAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("JSON offline...");
+                }
+            }
+        }
+
+        private void dataGridView1_DoubleClick(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow.Index != -1)
+            {
+                //get value from dataGrid double click row and add the value to the global var myValue
+                exp.id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value);
+                myValue = exp.id;
+                btnDelete.Enabled = true;
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            btnDelete.Enabled = false;
         }
     }
 }

@@ -1,0 +1,25 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "name": "Mukesh Kumar",
+      "street": "El Camino Real",
+      "city": "New Delhi",
+      "zipcode": 95014
+    },
+    {
+      "id": 2,
+      "name": "Kumar Mukesh",
+      "street": "El Camino Real",
+      "city": "New Delhi",
+      "zipcode": 95014
+    }
+  ],
+  "experiences": [],
+  "contact": [
+    {
+      "phoneNumber": 9988664422,
+      "role": "Developer"
+    }
+  ]
+}
