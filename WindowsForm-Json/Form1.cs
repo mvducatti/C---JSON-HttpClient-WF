@@ -16,18 +16,20 @@ namespace WindowsForm_Json
         public Form1()
         {
             InitializeComponent();
+            btnUpdate.Enabled = !true;
             fillDataAsync();
         }
 
         private async void fillDataAsync()
         {
             //creating programatically the grid columns, properties and options
-            dataGridView1.ColumnCount = 2; 
+            dataGridView1.ColumnCount = 2;
             dataGridView1.Columns[0].Name = "id";
             dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[1].Name = "companyName";
             dataGridView1.Columns[1].Visible = true;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ReadOnly = true;
 
             using (var client = createClient())
             {
@@ -87,7 +89,7 @@ namespace WindowsForm_Json
             return client;
         }
 
-        private async void button1_ClickAsync(object sender, EventArgs e)
+        private async void btnAdd_ClickAsync(object sender, EventArgs e)
         {
             using (var client = createClient())
             {
@@ -128,10 +130,6 @@ namespace WindowsForm_Json
             }
         }
 
-        private async void dataGridView1_CellContentClickAsync(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
         private async void btnDelete_ClickAsync(object sender, EventArgs e)
         {
             using (var client = createClient())
@@ -165,12 +163,65 @@ namespace WindowsForm_Json
                 exp.id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value);
                 myValue = exp.id;
                 btnDelete.Enabled = true;
+
+                exp.companyname = Convert.ToString(dataGridView1.CurrentRow.Cells["companyName"].Value);
+                btnUpdate.Enabled = true;
+
+                if (dataGridView1.CurrentRow.Index != -1)
+                {
+                    {
+                        txtExpName.Text = exp.companyname;
+                    }
+                }
             }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             btnDelete.Enabled = false;
+            btnUpdate.Enabled = false;
+            txtExpName.ResetText();
+        }
+
+        private async void btnUpdate_ClickAsync(object sender, EventArgs e)
+        {
+            using (var client = createClient())
+            {
+
+                if (txtExpName.Text == "")
+                {
+                    MessageBox.Show("Por favor insira uma empresa antes de continuar.", "Campo Vazio",
+                        MessageBoxButtons.OK);
+                }
+                else
+                {
+                    try
+                    {
+                        var companyUpdateName = txtExpName.Text;
+
+                        Experiences newExperience = new Experiences();
+
+                        newExperience.companyname = companyUpdateName;
+
+                        response = await client.PutAsJsonAsync("experiences/" + myValue, newExperience);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            MessageBox.Show("Experiência atualizada com sucesso", "UPDATE METHOD",
+                                    MessageBoxButtons.OK);
+
+                            txtExpName.ResetText();
+
+                            dataGridView1.Rows.Clear();
+                            fillDataAsync();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("JSON offline...");
+                    }
+                }
+            }
         }
     }
 }

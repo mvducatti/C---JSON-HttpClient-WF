@@ -15,7 +15,20 @@
       "zipcode": 95014
     }
   ],
-  "experiences": [],
+  "experiences": [
+    {
+      "id": 2,
+      "companyname": "IBM"
+    },
+    {
+      "id": 3,
+      "companyname": "OLX"
+    },
+    {
+      "id": 4,
+      "companyname": "OBS"
+    }
+  ],
   "contact": [
     {
       "phoneNumber": 9988664422,
